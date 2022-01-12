@@ -1,5 +1,5 @@
 :root {
-  --bg-button: #3a3939;
+  --bg-button: #464646;
   --border-button: solid 1px rgb(0, 0, 0);
 }
 
@@ -19,7 +19,7 @@
 }
 .button:hover {
   transition: 0.3s;
-  /* background-color: rgb(29, 29, 29); */
+  background-color: rgb(55, 55, 55);
   text-shadow: 0px 0px 5px white;
 }
 
@@ -30,9 +30,16 @@
   grid-column: span 3;
 }
 .button.operation {
-  background-color: #81b71a; 
-  color: white
+  background-color: #89d300;
+  color: white;
 }
-.button.operation {
-    background-color: #39500d; 
+
+.button.operation:active {
+    background-color: #253800;
+    color: white;
   }
+  .button.operation:hover {
+    background-color: #7cbf00;
+    color: white;
+  }
+  
