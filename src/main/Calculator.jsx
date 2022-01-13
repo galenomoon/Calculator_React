@@ -3,7 +3,18 @@ import "./Calculator.css";
 import Button from "../components/Button.jsx";
 import Display from "../components/Display.jsx";
 
+// Initial state of calculator, how it'll start in application
+const initialState = {
+  displayValue: "0",
+  clearDisplay: false,
+  operation: null,
+  values: [0, 0],
+  current: 0, //Witch x of [a, b]
+};
+
 export default class Calculator extends Component {
+  state = { ...initialState };
+
   constructor(props) {
     super(props);
     this.clearMemory = this.clearMemory.bind(this);
@@ -12,7 +23,7 @@ export default class Calculator extends Component {
   }
 
   clearMemory() {
-    console.log("limpar");
+    this.setState({ ...initialState });
   }
 
   setOperation(operation) {
@@ -20,7 +31,21 @@ export default class Calculator extends Component {
   }
 
   addDigit(n) {
-    console.log(n);
+    // Filter | Only one dot for number
+    if (n === "." && this.state.displayValue.includes(".")) {
+      return; //Nothing will be returned
+    }
+
+    //Display need's to be clean if
+    // - the value to be 0 and I wanna type a first number
+    // - Press btn AC
+    const clearDisplay =
+      this.state.displayValue === "0" || this.state.clearDisplay;
+
+    //Typed value
+    const currentValue = clearDisplay ? " " : this.state.displayValue;
+    const displayValue = currentValue + n;
+    this.setState({ displayValue, clearDisplay: false });
   }
 
   render() {
@@ -28,9 +53,9 @@ export default class Calculator extends Component {
     // const setOperation = (op) => this.setOperation(op);
     return (
       <div className="calculator">
-        <Display value={100} />
+        <Display value={this.state.displayValue} />
         <Button label="AC" click={this.clearMemory} triple />
-        <Button label="/" click={this.setOperation}  operation />
+        <Button label="/" click={this.setOperation} operation />
         <Button label="7" click={this.addDigit} />
         <Button label="8" click={this.addDigit} />
         <Button label="9" click={this.addDigit} />
