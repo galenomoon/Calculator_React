@@ -9,7 +9,7 @@ const initialState = {
   clearDisplay: false,
   operation: null,
   values: [0, 0],
-  current: 0, //Witch x of [a, b]
+  current: 0, //Index of array
 };
 
 export default class Calculator extends Component {
@@ -32,10 +32,15 @@ export default class Calculator extends Component {
 
   addDigit(n) {
     // Filter | Only one dot for number
-    if (n === "." && this.state.displayValue.includes(".")) {
+    if (
+      (n === "." && this.state.displayValue.includes(".")) ||
+      (n === "." && this.state.displayValue === "0")
+    ) {
       return; //Nothing will be returned
     }
-
+    if (n === "0" && this.state.displayValue === "0") {
+      return; //Nothing will be returned
+    }
     //Display need's to be clean if
     // - the value to be 0 and I wanna type a first number
     // - Press btn AC
@@ -45,7 +50,16 @@ export default class Calculator extends Component {
     //Typed value
     const currentValue = clearDisplay ? " " : this.state.displayValue;
     const displayValue = currentValue + n;
-    this.setState({ displayValue, clearDisplay: false });
+    this.setState({ displayValue, clearDisplay: false }); //Showing on display
+
+    if (n !== ".") {
+      const i = this.state.current; //Setting the index of array
+      const newValue = parseFloat(displayValue);
+      const values = [...this.state.values];
+      values[i] = newValue;
+      this.setState({ values });
+      console.log(values);
+    }
   }
 
   render() {
