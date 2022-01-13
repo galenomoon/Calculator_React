@@ -13,6 +13,6 @@ body {
   align-items: center;
   text-align: center;
   color: white;
-  background: linear-gradient(to bottom, rgb(41, 41, 41),rgb(10, 28, 8), rgb(128, 183, 26));
-  /* background:rgb(128, 183, 26); */
+  /* background: linear-gradient(to bottom, rgb(41, 41, 41),rgb(10, 28, 8), rgb(128, 183, 26)); */
+  background:rgb(41, 41, 41);
 }

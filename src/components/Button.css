@@ -10,7 +10,7 @@
   border-right: var(--border-button);
   border-bottom: var(--border-button);
   outline: none;
-  transition: 0.2s;
+  transition: 0.5s;
   color: white;
 }
 
@@ -18,9 +18,11 @@
   background-color: rgb(0, 0, 0);
 }
 .button:hover {
-  transition: 0.3s;
+  transition: 0.2s;
   background-color: rgb(55, 55, 55);
   text-shadow: 0px 0px 5px white;
+  transform: scale(1.03);
+  box-shadow: 1px 3px 10px rgb(17, 17, 17);;
 }
 
 .button.double {
