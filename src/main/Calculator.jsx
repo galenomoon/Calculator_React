@@ -3,7 +3,7 @@ import "./Calculator.css";
 import Button from "../components/Button.jsx";
 import Display from "../components/Display.jsx";
 
-// Initial state of calculator, how it'll start in application
+// =============== INITIAL STATE OF CALCULATOR ===============
 const initialState = {
   displayValue: "0",
   clearDisplay: false,
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 export default class Calculator extends Component {
-  state = { ...initialState };
+  state = { ...initialState }; //Calling the variable initialState and their values using spread
 
   constructor(props) {
     super(props);
@@ -22,14 +22,39 @@ export default class Calculator extends Component {
     this.addDigit = this.addDigit.bind(this);
   }
 
+  // ================== CLEAR ALL ==================
   clearMemory() {
     this.setState({ ...initialState });
   }
 
+  // ================== Typing a OPERATION in Calculator ==================
   setOperation(operation) {
-    console.log(operation);
+    if (this.state.current === 0) {
+      this.setState({ operation, current: 1, clearDisplay: true });
+    }
+    if (this.state.current === 1) {
+      const equals = operation === "=";
+      const currentOperation = this.state.operation;
+      const values = [...this.state.values];
+
+      try {
+        values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`);
+      } catch (e) {
+        values[0] = this.state.values[0];
+      }
+
+      values[1] = 0;
+      this.setState({
+        displayValue: values[0],
+        operation: equals ? null : operation,
+        current: equals ? 0 : 1,
+        clearDisplay: !equals,
+        values,
+      });
+    }
   }
 
+  // ================== Typing a NUMBER in Calculator ==================
   addDigit(n) {
     // Filter | Only one dot for number
     if (
